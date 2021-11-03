@@ -1,5 +1,6 @@
 import React from 'react';
 import Home from './Home';
+import firebase from './firebase';
 import {
   BrowserRouter as Router,
   Switch,
