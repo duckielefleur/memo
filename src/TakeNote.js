@@ -11,10 +11,9 @@ const TakeNote = ({state, ...actions}) => {
             </div>
             :
             <div className="take-notes2">
-              <input type="text" value={state.notes.title} placeholder="Title" className="title" onChange={(e)=>actions.handleChangeNote(e.target.value,"title")}/><br></br>
-              <input type="text" value={state.notes.input} placeholder="Take a note..." onChange={(e)=>actions.handleChangeNote(e.target.value,"input")} className="take-note" autoFocus="autofocus " /> 
-              <button onClick={actions.addToNotes}>close</button>
-              
+                <input type="text" value={state.notes.title} placeholder="Title" className="title" onChange={(e)=>actions.handleChangeNote(e.target.value,"title")}/><br></br>
+                <input type="text" value={state.notes.input} placeholder="Take a note..." onChange={(e)=>actions.handleChangeNote(e.target.value,"input")} className="take-note" autoFocus="autofocus " /> 
+                <button onClick={actions.addToNotes}>close</button>
             </div>
         }
         </div>
