@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from './Home';
-import firebase from './firebase';
+import { signInWithGoogle } from './firebase';
+import { auth } from './firebase';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,6 +13,7 @@ import Trash from './Trash';
 class App extends React.Component{
   constructor(props){
     super(props);
+    
     this.state = {
       search: null,
       edited_note: {
@@ -26,6 +28,7 @@ class App extends React.Component{
         title: "",
         input: ""
       },
+      currentUser:null,
       search_list: [],
       notes_list: [], 
       visible: false,
@@ -56,8 +59,11 @@ class App extends React.Component{
       removeFromTrash: this.removeFromTrash
     };
   }
-
+  unsubscribeFromAuth = null;
   componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
+      this.setState({currentUser: user})
+    })
     const trash_string = localStorage.getItem('trash');
     const trash_list = JSON.parse(trash_string);
     const list_string = localStorage.getItem('list');
@@ -190,6 +196,9 @@ class App extends React.Component{
       trash_list: trash_list
     });
   }
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
 
   render() {
     let styles = {
@@ -202,7 +211,25 @@ class App extends React.Component{
     };
     return(
      
-      <div>
+      <div className='user-info'>
+        {
+
+          this.state.currentUser ?
+
+            (<div>
+              <div>
+                <img src={this.state.currentUser.photoURL} />
+              </div>
+              <div>Name: {this.state.currentUser.displayName}</div>
+              <div>Email: {this.state.currentUser.email}</div>
+
+              <button onClick={() => auth.signOut()}>LOG OUT</button>
+            </div>
+            ) :
+
+            <button onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</button>
+
+        }
         <div className="header">
           <img src="./logo.png" />
           <h3>MEMO</h3>
