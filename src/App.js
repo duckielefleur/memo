@@ -218,16 +218,16 @@ class App extends React.Component{
 
             (<div>
               <div>
-                <img src={this.state.currentUser.photoURL} />
+                <img className="user_icon" src={this.state.currentUser.photoURL} />
               </div>
-              <div>Name: {this.state.currentUser.displayName}</div>
-              <div>Email: {this.state.currentUser.email}</div>
+              <div className="user_name">Name: {this.state.currentUser.displayName}</div>
+              <div className="user_email">Email: {this.state.currentUser.email}</div>
 
-              <button onClick={() => auth.signOut()}>LOG OUT</button>
+              <button className="logout" onClick={() => auth.signOut()}>LOG OUT</button>
             </div>
             ) :
 
-            <button onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</button>
+            <button className="signIn"  onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</button>
 
         }
         <div className="header">
